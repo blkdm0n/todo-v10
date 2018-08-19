@@ -1,25 +1,12 @@
 // DATA AND METHODS THAT CHANGE DATA => SPECIFIC
 
 var todoList = {
-  todos: [
-    {
-      todoText: `first`,
-      completed: false
-    },
-    {
-      todoText: `second`,
-      completed: true
-    },
-    {
-      todoText: `third`,
-      completed: false
-    }
-  ],
+  todos: [],
   addTodo: function(todoText) {
     if (todoText) {
       this.todos.push({
         todoText: todoText,
-        completed: false
+        completed: false,
       });
     } else {
       console.log(`Please enter a valid todo`);
@@ -59,12 +46,8 @@ var todoList = {
       }
     }
   },
-  deleteTodo: function(deletedTodo) {
-    for (let i = 0; i < this.todos.length; i++) {
-      if (this.todos[i].todoText === deletedTodo) {
-        this.todos.splice(i, 1);
-      }
-    }
+  deleteTodo: function(index) {
+    this.todos.splice(index, 1);
   }
 };
 
@@ -112,7 +95,6 @@ const views = {
     var ul = document.getElementById(`todo-list`);
     //  Clears list so we don't end up with duplicate lists
     ul.innerHTML = "";
-
     for (var i = 0; i < todoList.todos.length; i++) {
       if (todoList.todos[i].completed === true) {
         textNode = document.createTextNode(`[X] ${todoList.todos[i].todoText}`);
@@ -133,12 +115,14 @@ const views = {
     deleteButton.className = `delete-button`;
     return deleteButton;
   },
-  initialize: function() {
-    this.displayTodos();
-  }
 };
 
 var todosUl = document.querySelector(`ul`);
 todosUl.addEventListener(`click`, e => {
-  console.log(`click is working`, e.target.parentNode.id);
+  var clickedElement = e.target;
+  if (clickedElement.className === `delete-button`) {
+    handlers.deleteTodo(parseInt(clickedElement.parentNode.id));
+    console.log(typeof clickedElement.parentNode.id);
+  }
+
 });
