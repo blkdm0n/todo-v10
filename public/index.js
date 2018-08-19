@@ -112,18 +112,17 @@ const views = {
     var ul = document.getElementById(`todo-list`);
     //  Clears list so we don't end up with duplicate lists
     ul.innerHTML = "";
-  
+
     for (var i = 0; i < todoList.todos.length; i++) {
       if (todoList.todos[i].completed === true) {
         textNode = document.createTextNode(`[X] ${todoList.todos[i].todoText}`);
         node = document.createElement(`li`);
-         
       } else {
         textNode = document.createTextNode(`[ ] ${todoList.todos[i].todoText}`);
         node = document.createElement(`li`);
       }
       node.appendChild(textNode);
-      node.setAttribute(`id`, i);
+      node.id = i;
       node.appendChild(this.createDeleteButton());
       ul.appendChild(node);
     }
@@ -133,11 +132,13 @@ const views = {
     deleteButton.textContent = `Delete`;
     deleteButton.className = `delete-button`;
     return deleteButton;
-
-
-
   },
   initialize: function() {
     this.displayTodos();
   }
 };
+
+var todosUl = document.querySelector(`ul`);
+todosUl.addEventListener(`click`, e => {
+  console.log(`click is working`, e.target.parentNode.id);
+});
