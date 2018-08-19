@@ -116,22 +116,23 @@ const views = {
     for (var i = 0; i < todoList.todos.length; i++) {
       if (todoList.todos[i].completed === true) {
         textNode = document.createTextNode(`[X] ${todoList.todos[i].todoText}`);
-        node = document.createElement(`li`); 
+        node = document.createElement(`li`);
+         
       } else {
         textNode = document.createTextNode(`[ ] ${todoList.todos[i].todoText}`);
         node = document.createElement(`li`);
       }
       node.appendChild(textNode);
+      node.setAttribute(`id`, i);
       node.appendChild(this.createDeleteButton());
       ul.appendChild(node);
     }
   },
   createDeleteButton: function() {
-    var buttonText = document.createTextNode(`DELETE`);
-    var buttonElement = document.createElement(`button`);
-    buttonElement.appendChild(buttonText);
-    console.log(`button element =>`, buttonElement);
-    return buttonElement;
+    var deleteButton = document.createElement(`button`);
+    deleteButton.textContent = `Delete`;
+    deleteButton.className = `delete-button`;
+    return deleteButton;
 
 
 
