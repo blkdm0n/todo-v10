@@ -112,6 +112,7 @@ const views = {
     deleteButton.className = `delete-button`;
     return deleteButton;
   },
+  //event delegation add listener to parent element and listen for all elements
   eventListenerSetup: function() {
     var todosUl = document.querySelector(`ul`);
     todosUl.addEventListener(`click`, e => {
